@@ -1,5 +1,5 @@
 #include <benchmark/benchmark.h>
-#include "bcrypt/bcrypt.hpp"
+#include <bcrypt/bcrypt.hpp>
 
 namespace {
 void GenerateHash(benchmark::State& state) {

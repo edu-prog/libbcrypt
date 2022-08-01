@@ -17,50 +17,22 @@ project(bcrypt)
 
 enable_language(ASM)
 
-set(MYLIB_VERSION_MAJOR 1)
-set(MYLIB_VERSION_MINOR 0)
-set(MYLIB_VERSION_PATCH 0)
-set(MYLIB_VERSION_STRING ${MYLIB_VERSION_MAJOR}.${MYLIB_VERSION_MINOR}.${MYLIB_VERSION_PATCH})
-
-# just doing cmake . will build a shared or static lib and honor existing environment setting
-# to force build static, cmake . -DBUILD_SHARED_LIBS=Off
-# to force build shared, cmake . -DBUILD_SHARED_LIBS=On
-if(NOT BUILD_SHARED_LIBS)
-	message("Building a static library")
-else()
-	message("Building a shared library")
-endif()
-
-set(CMAKE_COLOR_MAKEFILE ON)
-
 set(CMAKE_CXX_STANDARD 20)
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
 
 set(CMAKE_ASM_FLAGS "${CXXFLAGS} -x assembler-with-cpp")
 
-set(SRCFILES
+add_library(
+	${PROJECT_NAME}
 	${CMAKE_CURRENT_SOURCE_DIR}/src/bcrypt.c
 	${CMAKE_CURRENT_SOURCE_DIR}/src/crypt_blowfish.c
 	${CMAKE_CURRENT_SOURCE_DIR}/src/crypt_gensalt.c
 	${CMAKE_CURRENT_SOURCE_DIR}/src/wrapper.c
 	${CMAKE_CURRENT_SOURCE_DIR}/src/x86.S
 )
+add_library(ep::bcrypt ALIAS ${PROJECT_NAME})
 
-add_library(
-	${PROJECT_NAME}
-	${SRCFILES}
-)
-
-set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${MYLIB_VERSION_STRING} SOVERSION ${MYLIB_VERSION_MAJOR})
-
-set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER include/bcrypt/bcrypt.hpp)
-
-target_include_directories(${PROJECT_NAME} PRIVATE include)
-target_include_directories(${PROJECT_NAME} PRIVATE src)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/bcrypt)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(${PROJECT_NAME} INTERFACE include)
+target_include_directories(${PROJECT_NAME} INTERFACE src)
 
 include(GNUInstallDirs)
 
@@ -73,21 +45,25 @@ install(TARGETS ${PROJECT_NAME}
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 	FILES_MATCHING
 	PATTERN "*.h"
-	PATTERN "tests" EXCLUDE
 )
 
-SET(CPACK_GENERATOR "DEB")
-SET(CPACK_SET_DESTDIR ON)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+	if(SANITIZERS)
+		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address,undefined")
+	endif()
 
-SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Manuel Romei")
-SET(CPACK_PACKAGE_VERSION "1.0.0")
-SET(CPACK_PACKAGE_VERSION_MAJOR "1")
-SET(CPACK_PACKAGE_VERSION_MINOR "0")
-SET(CPACK_PACKAGE_VERSION_PATCH "0")
+	if(TESTING)
+		enable_testing()
+		add_subdirectory(tests)
+	endif()
 
-INCLUDE(CPack)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall -Werror")
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+	if(BENCHMARKS)
+		# add_subdirectory(benchmark)
+	endif()
 
-if(TESTING)
-	enable_testing()
-	add_subdirectory(tests)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
 endif()

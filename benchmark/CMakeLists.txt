@@ -8,6 +8,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 find_package(benchmark REQUIRED)
 
+# find_package(bcrypt REQUIRED)
 target_include_directories(${PROJECT_NAME} PRIVATE ../include)
-
 target_link_libraries(${PROJECT_NAME} PUBLIC bcrypt benchmark::benchmark)
