@@ -12,7 +12,6 @@ cd build
 cmake ..
 make
 sudo make install
-sudo ldconfig
 ```
 
 ## How to use this
