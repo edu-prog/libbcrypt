@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <bcrypt/BCrypt.hpp>
+#include <bcrypt/bcrypt.hpp>
 
 TEST(bcrypt, Basic) {
   auto password = "Password";
