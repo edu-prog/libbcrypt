@@ -3,7 +3,7 @@
 
 TEST(bcrypt, Basic) {
   auto password = "Password";
-  auto hash = BCrypt::generateHash(password);
+  auto hash = bcrypt::generate_hash(password);
 
-  EXPECT_TRUE(BCrypt::validatePassword(password, hash));
+  EXPECT_TRUE(bcrypt::compare_hash_and_password(hash, password));
 }

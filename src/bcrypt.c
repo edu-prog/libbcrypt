@@ -120,25 +120,6 @@ int bcrypt_gensalt(int factor, char salt[BCRYPT_HASHSIZE])
 	int workf;
 	char *aux;
 
-	// Note: Windows does not have /dev/urandom sadly.
-#if defined(_WIN32) || defined(_WIN64)
-	HCRYPTPROV p;
-	ULONG     i;
-
-	// Acquire a crypt context for generating random bytes.
-	if (CryptAcquireContext(&p, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT) == FALSE) {
-		return 1;
-	}
-
-	if (CryptGenRandom(p, RANDBYTES, (BYTE*)input) == FALSE) {
-		return 2;
-	}
-
-	if (CryptReleaseContext(p, 0) == FALSE) {
-		return 3;
-	}
-#else
-	// Get random bytes on Unix/Linux.
 	fd = open("/dev/urandom", O_RDONLY);
 	if (fd == -1)
 		return 1;
@@ -151,9 +132,7 @@ int bcrypt_gensalt(int factor, char salt[BCRYPT_HASHSIZE])
 
 	if (try_close(fd) != 0)
 		return 3;
-#endif
 
-	/* Generate salt. */
 	workf = (factor < 4 || factor > 31)?12:factor;
 	aux = crypt_gensalt_rn("$2a$", workf, input, RANDBYTES,
 			       salt, BCRYPT_HASHSIZE);
