@@ -29,7 +29,6 @@ add_library(
 	${CMAKE_CURRENT_SOURCE_DIR}/src/wrapper.c
 	${CMAKE_CURRENT_SOURCE_DIR}/src/x86.S
 )
-add_library(ep::bcrypt ALIAS ${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME} INTERFACE include)
 target_include_directories(${PROJECT_NAME} INTERFACE src)
