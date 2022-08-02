@@ -17,9 +17,13 @@ sudo cmake --build build -j$(nproc) --target install
 
 ## How to use this
 
+CMakeLists.txt:
+
 ```cmake
 target_link_library(${PROJECT_NAME} PRIVATE bcrypt)
 ```
+
+C++:
 
 ```cpp
 #include <bcrypt/bcrypt.hpp>
