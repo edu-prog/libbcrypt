@@ -1,40 +1,37 @@
 # libbcrypt
+
 A c++ wrapper around bcrypt password hashing
 
 ## How to build this
+
 This is a CMake based project:
 
 ```bash
-git clone https://github.com/trusch/libbcrypt
+git clone git@bb.eduprog-team.ru:eduprog/libbcrypt.git
 cd libbcrypt
 mkdir build
-cd build
-cmake ..
-make
-sudo make install
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j$(nproc)
+sudo cmake --build build -j$(nproc) --target install
 ```
 
 ## How to use this
 
-Here an example how to use this wrapper class (you can find a slightly edited example in src/ subdirectory)
+```cmake
+target_link_library(${PROJECT_NAME} PRIVATE bcrypt)
+```
 
 ```cpp
-#include "bcrypt/BCrypt.hpp"
+#include <bcrypt/bcrypt.hpp>
 #include <iostream>
 
-int main(){
-	std::string password = "test";
-	std::string hash = BCrypt::generateHash(password);
+int main() {
+	auto password = "test";
+	auto hash = bcrypt::generate_hash(password);
 
-	std::cout << BCrypt::validatePassword(password,hash) << std::endl;
-	std::cout << BCrypt::validatePassword("test1",hash) << std::endl;
+	std::cout << bcrypt::compare_hash_and_password(hash, password) << '\n';
+	std::cout << bcrypt::compare_hash_and_password(hash, "test1") << '\n';
 
 	return 0;
 }
-```
-
-build this with something like this:
-
-```bash
-g++ --std=c++11 -lbcrypt main.cpp
 ```

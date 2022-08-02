@@ -32,6 +32,7 @@ add_library(
 
 target_include_directories(${PROJECT_NAME} INTERFACE include)
 target_include_directories(${PROJECT_NAME} INTERFACE src)
+set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER include/bcrypt/bcrypt.hpp)
 
 include(GNUInstallDirs)
 
@@ -41,7 +42,8 @@ install(TARGETS ${PROJECT_NAME}
 	RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}
 	PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/bcrypt)
 
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ 
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 	FILES_MATCHING
 	PATTERN "*.h"
 )
