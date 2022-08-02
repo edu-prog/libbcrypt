@@ -35,7 +35,7 @@ void ValidationHash(benchmark::State& state) {
   for (auto _ : state) {
     constexpr auto kSize = 10;
 
-    std::vector<array_hash_t> hashes{
+    std::vector<bcrypt::array_hash_t> hashes{
         {36, 50,  97,  36, 49,  48,  36,  66,  111, 102, 71,  113, 70,  87, 116,
          56, 46,  117, 79, 86,  122, 112, 47,  101, 121, 51,  107, 66,  46, 46,
          97, 122, 75,  97, 117, 51,  115, 115, 104, 49,  101, 116, 103, 78, 113,
@@ -100,7 +100,7 @@ void ValidationHash(benchmark::State& state) {
     std::array<bool, 10> statuses;
 
     for (auto i = 0; i < kSize; i++) {
-      statuses[i] = compare_hash_and_password(hashes[i], passwords[i]);
+      statuses[i] = bcrypt::compare_hash_and_password(hashes[i], passwords[i]);
     }
 
     benchmark::DoNotOptimize(statuses);
