@@ -13,7 +13,7 @@ steps:
       - sudo apt install build-essential cmake
   - name: configure
     commands:
-      - cmake -B build -DCMAKE_BUILD_TYPE=Debug -DTESTING -DSANITAIZERS
+      - cmake -B build -DCMAKE_BUILD_TYPE=Debug -DTESTING=1 -DSANITAIZERS=1
   - name: build
     commands:
       - cmake --build build -j$(nproc)
