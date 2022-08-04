@@ -1,5 +1,7 @@
 # libbcrypt
 
+[![Build Status](https://bb.ci.eduprog-team.ru/api/badges/eduprog/libbcrypt/status.svg)](https://bb.ci.eduprog-team.ru/eduprog/libbcrypt)
+
 A c++ wrapper around bcrypt password hashing
 
 ## How to build this
