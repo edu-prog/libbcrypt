@@ -29,7 +29,7 @@
 #ifdef _WIN32
 #include "../include/bcrypt/crypt_gensalt.h"
 #else
-#include "bcrypt/crypt_gensalt.h"
+#include "crypt_gensalt.h"
 #endif
 
 unsigned char _crypt_itoa64[64 + 1] =
