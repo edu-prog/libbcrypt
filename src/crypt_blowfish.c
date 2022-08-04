@@ -54,7 +54,7 @@
 #if defined(_WIN32) || defined(_WIN64)
 #include "../include/bcrypt/crypt_blowfish.h"
 #else
-#include "bcrypt/crypt_blowfish.h"
+#include "crypt_blowfish.h"
 #endif
 
 #ifdef __i386__
