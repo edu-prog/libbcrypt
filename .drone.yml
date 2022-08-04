@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: exec
-name: Ubuntu 22.04: g++11 + debug + sanitize addr+ub + tests
+name: "Ubuntu 22.04: g++11 + debug + sanitize addr+ub + tests"
 
 platform:
   arch: amd64
@@ -17,7 +17,6 @@ steps:
   - name: build
     commands:
       - cmake --build build -j$(nproc)
-  
-  - name: testing:
+  - name: testing
     commands:
       - ./build/tests/bcrypt_tests
