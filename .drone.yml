@@ -20,3 +20,23 @@ steps:
   - name: testing
     commands:
       - ./build/tests/bcrypt_tests
+
+---
+kind: pipeline
+type: exec
+name: "Ubuntu 22.04: clang++-14 + debug + sanitize addr+ub + tests"
+
+platform:
+  arch: amd64
+  os: linux
+
+steps:
+  - name: configure
+    commands:
+      - cmake -B build -DCMAKE_CXX_COMPILER=clang++-14 -DCMAKE_C_COMPILER=clang-14 -DCMAKE_BUILD_TYPE=Debug -DTESTING=1 -DSANITIZERS=1
+  - name: build
+    commands:
+      - cmake --build build -j$(nproc)
+  - name: testing
+    commands:
+      - ./build/tests/bcrypt_tests
