@@ -1,3 +1,4 @@
+---
 kind: pipeline
 type: exec
 name: Ubuntu 22.04: g++11 + debug + sanitize addr+ub + tests
