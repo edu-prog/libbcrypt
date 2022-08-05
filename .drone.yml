@@ -10,6 +10,7 @@ steps:
   - name: install dependencies
     image: ubuntu
     commands:
+      - apt update
       - apt install cmake build-essential
   - name: configure
     image: ubuntu:jammy
