@@ -11,7 +11,7 @@ steps:
     image: ubuntu
     commands:
       - apt update -y
-      - apt install cmake build-essential
+      - apt install -y cmake build-essential
   - name: configure
     image: ubuntu:jammy
     commands:
