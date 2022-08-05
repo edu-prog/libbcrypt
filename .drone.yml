@@ -7,7 +7,7 @@ platform:
   os: linux
 
 steps:
-  - name: "Ubuntu 22.04: g++11 + debug + sanitize addr+ub + tests"
+  - name: build + tests
     image: ubuntu:22.04
     commands:
       - apt update -y
@@ -25,15 +25,15 @@ platform:
   os: linux
 
 steps:
-  - name: build
+  - name: build + tests
     image: ubuntu:22.04
     commands:
       - apt update -y
       - apt install cmake build-essential clang -y
       - cmake -B build -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Debug -DTESTING=1 -DSANITIZERS=1
-        - cmake --build build -j$(nproc)
-        - ./build/tests/bcrypt_tests
-
+      - cmake --build build -j$(nproc)
+      - ./build/tests/bcrypt_tests
+      
 ---
 kind: pipeline
 name: "Ubuntu 22.04: clang++-14 + release"
