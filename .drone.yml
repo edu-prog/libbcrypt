@@ -7,22 +7,13 @@ platform:
   os: linux
 
 steps:
-  - name: install dependencies
+  - name: "Ubuntu 22.04: g++11 + debug + sanitize addr+ub + tests"
     image: ubuntu
     commands:
       - apt update -y
       - apt install -y cmake build-essential
-  - name: configure
-    image: ubuntu:jammy
-    commands:
       - cmake -B build -DCMAKE_BUILD_TYPE=Debug -DTESTING=1 -DSANITIZERS=1
-  - name: build
-    image: ubuntu
-    commands:
       - cmake --build build -j$(nproc)
-  - name: testing
-    image: ubuntu
-    commands:
       - ./build/tests/bcrypt_tests
 
 ---
