@@ -26,6 +26,7 @@ platform:
 
 steps:
   - name: build
+    image: ubuntu:22.04
     commands:
       - apt update -y
       - apt install cmake build-essential clang
@@ -43,6 +44,7 @@ platform:
 
 steps:
   - name: build
+    image: ubuntu:22.04
     commands:
       - apt update -y
       - apt install cmake build-essential clang
