@@ -10,7 +10,7 @@ steps:
   - name: install dependencies
     image: gcc
     commands:
-      - sudo apt install -y cmake
+      - apt install -y cmake
   - name: configure
     image: gcc
     commands:
