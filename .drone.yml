@@ -10,7 +10,7 @@ steps:
   - name: install dependencies
     image: gcc
     commands:
-      sudo apt install -y cmake
+      - sudo apt install -y cmake
   - name: configure
     image: gcc
     commands:
@@ -20,6 +20,7 @@ steps:
     commands:
       - cmake --build build -j$(nproc)
   - name: testing
+    image: gcc
     commands:
       - ./build/tests/bcrypt_tests
 
