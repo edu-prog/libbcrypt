@@ -8,7 +8,7 @@ platform:
 
 steps:
   - name: "Ubuntu 22.04: g++11 + debug + sanitize addr+ub + tests"
-    image: ubuntu
+    image: build
     commands:
       - apt update -y
       - apt install -y cmake build-essential
@@ -18,7 +18,6 @@ steps:
 
 ---
 kind: pipeline
-type: exec
 name: "Ubuntu 22.04: clang++-14 + debug + sanitize addr+ub + tests"
 
 platform:
@@ -26,19 +25,16 @@ platform:
   os: linux
 
 steps:
-  - name: configure
-    commands:
-      - cmake -B build -DCMAKE_CXX_COMPILER=clang++-14 -DCMAKE_C_COMPILER=clang-14 -DCMAKE_BUILD_TYPE=Debug -DTESTING=1 -DSANITIZERS=1
   - name: build
     commands:
-      - cmake --build build -j$(nproc)
-  - name: testing
-    commands:
-      - ./build/tests/bcrypt_tests
+      - apt update -y
+      - apt install cmake build-essential clang
+      - cmake -B build -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Debug -DTESTING=1 -DSANITIZERS=1
+        - cmake --build build -j$(nproc)
+        - ./build/tests/bcrypt_tests
 
 ---
 kind: pipeline
-type: exec
 name: "Ubuntu 22.04: clang++-14 + release"
 
 platform:
@@ -48,7 +44,7 @@ platform:
 steps:
   - name: configure
     commands:
-      - cmake -B build -DCMAKE_CXX_COMPILER=clang++-14 -DCMAKE_C_COMPILER=clang-14 -DCMAKE_BUILD_TYPE=Release
-  - name: build
-    commands:
+      - apt update -y
+      - apt install cmake build-essential clang
+      - cmake -B build -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Release
       - cmake --build build -j$(nproc)
