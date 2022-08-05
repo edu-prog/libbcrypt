@@ -7,11 +7,4 @@ Makefile
 cmake_install.cmake
 install_manifest.txt
 
-# User-specific files
-*.rsuser
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-
 .vscode
