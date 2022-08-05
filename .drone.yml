@@ -7,12 +7,16 @@ platform:
   os: linux
 
 steps:
+  - name: install dependencies
+    image: gcc
+    commands:
+      sudo apt install -y cmake
   - name: configure
-    image: cmake
+    image: gcc
     commands:
       - cmake -B build -DCMAKE_BUILD_TYPE=Debug -DTESTING=1 -DSANITIZERS=1
   - name: build
-    image: cmake, gcc
+    image: gcc
     commands:
       - cmake --build build -j$(nproc)
   - name: testing
