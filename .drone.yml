@@ -8,7 +8,7 @@ platform:
 
 steps:
   - name: "Ubuntu 22.04: g++11 + debug + sanitize addr+ub + tests"
-    image: build
+    image: ubuntu:22.04
     commands:
       - apt update -y
       - apt install -y cmake build-essential
@@ -42,7 +42,7 @@ platform:
   os: linux
 
 steps:
-  - name: configure
+  - name: build
     commands:
       - apt update -y
       - apt install cmake build-essential clang
