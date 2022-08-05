@@ -29,7 +29,7 @@ steps:
     image: ubuntu:22.04
     commands:
       - apt update -y
-      - apt install cmake build-essential clang
+      - apt install cmake build-essential clang -y
       - cmake -B build -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Debug -DTESTING=1 -DSANITIZERS=1
         - cmake --build build -j$(nproc)
         - ./build/tests/bcrypt_tests
@@ -47,6 +47,6 @@ steps:
     image: ubuntu:22.04
     commands:
       - apt update -y
-      - apt install cmake build-essential clang
+      - apt install cmake build-essential clang -y
       - cmake -B build -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Release
       - cmake --build build -j$(nproc)
