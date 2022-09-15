@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  posix:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - cmake-flags: >-
+              -DCMAKE_CXX_COMPILER=clang++-14 -DCMAKE_C_COMPILER=clang-14
+              -DSANITIZERS=1 -DCMAKE_BUILD_TYPE=Debug -DTESTING=1
+            os: ubuntu-22.04
+            info: "clang-14 + Debug + sanitize ub+addr"
+
+          - cmake-flags: >-
+              -DCMAKE_CXX_COMPILER=g++-11 -DCMAKE_C_COMPILER=gcc-11
+              -DSANITIZERS=1 -DCMAKE_BUILD_TYPE=Debug -DTESTING=1
+            os: ubuntu-22.04
+            info: "g++-11 + Debug + sanitize ub+addr"
+
+          - cmake-flags: >-
+              -DCMAKE_CXX_COMPILER=g++-11 -DCMAKE_C_COMPILER=gcc-11 
+              -DCMAKE_BUILD_TYPE=Release -DTESTING=1
+            os: ubuntu-22.04
+            info: "g++-11 + Release"
+
+          - cmake-flags: >-
+              -DCMAKE_CXX_COMPILER=g++-9 -DCMAKE_C_COMPILER=gcc-9 
+              -DCMAKE_BUILD_TYPE=Debug -DSANITIZERS=1 -DTESTING=1
+            os: ubuntu-20.04
+            info: "g++-9 + Debug + sanitize ub+addr"
+
+          - cmake-flags: >-
+              -DCMAKE_CXX_COMPILER=g++-9 -DCMAKE_C_COMPILER=gcc-9 
+              -DCMAKE_BUILD_TYPE=Release -DTESTING=1
+            os: ubuntu-20.04
+            info: "g++-9 + Release"
+
+    name: "${{matrix.os}}: ${{matrix.info}}"
+    runs-on: ${{matrix.os}}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: "Run CMake"
+        run: |
+          cmake -B build ${{matrix.cmake-flags}}
+
+      - name: "Compile"
+        run: |
+          pwd
+          cmake --build build -j$(nproc)
+
+      - name: "Run tests"
+        run: |
+          cd build && ctest -v
