@@ -40,3 +40,6 @@ int main() {
 	return 0;
 }
 ```
+
+## License
+Distributed under the [MIT License](LICENSE.txt).
