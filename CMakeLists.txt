@@ -1,16 +1,3 @@
-# ##################################################################################
-#
-# Copyright (c) 2014, webvariants GmbH, http://www.webvariants.de
-#
-# This file is released under the terms of the MIT license. You can find the
-# complete text in the attached LICENSE file or online at:
-#
-# http://www.opensource.org/licenses/mit-license.php
-#
-# @author: Tino Rusch (tino.rusch@webvariants.de)
-#
-# ##################################################################################
-
 cmake_minimum_required(VERSION 3.16)
 
 project(bcrypt)
@@ -62,7 +49,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall -Werror")
 elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
 	if(BENCHMARKS)
-		# add_subdirectory(benchmark)
+		add_subdirectory(benchmark)
 	endif()
 
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
