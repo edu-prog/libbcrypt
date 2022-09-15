@@ -9,7 +9,7 @@ A c++ wrapper around bcrypt password hashing
 This is a CMake based project:
 
 ```bash
-git clone git@bb.eduprog-team.ru:eduprog/libbcrypt.git
+git clone https://github.com/edu-prog/libbcrypt.git
 cd libbcrypt
 mkdir build
 cmake -B build -DCMAKE_BUILD_TYPE=Release
