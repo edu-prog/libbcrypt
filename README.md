@@ -11,7 +11,6 @@ This is a CMake based project:
 ```bash
 git clone https://github.com/edu-prog/libbcrypt.git
 cd libbcrypt
-mkdir build
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
 sudo cmake --build build -j$(nproc) --target install
