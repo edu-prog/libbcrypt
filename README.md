@@ -42,4 +42,4 @@ int main() {
 ```
 
 ## License
-Distributed under the [MIT License](LICENSE.txt).
+Distributed under the [MIT License](LICENSE).
