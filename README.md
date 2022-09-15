@@ -1,6 +1,6 @@
 # libbcrypt
 
-[![Build Status](https://bb.ci.eduprog-team.ru/api/badges/eduprog/libbcrypt/status.svg)](https://bb.ci.eduprog-team.ru/eduprog/libbcrypt)
+[![CI](https://github.com/edu-prog/libbcrypt/actions/workflows/ci.yml/badge.svg)](https://github.com/edu-prog/libbcrypt/actions/workflows/ci.yml)
 
 A c++ wrapper around bcrypt password hashing
 
@@ -9,9 +9,8 @@ A c++ wrapper around bcrypt password hashing
 This is a CMake based project:
 
 ```bash
-git clone git@bb.eduprog-team.ru:eduprog/libbcrypt.git
+git clone https://github.com/edu-prog/libbcrypt.git
 cd libbcrypt
-mkdir build
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
 sudo cmake --build build -j$(nproc) --target install
@@ -41,3 +40,6 @@ int main() {
 	return 0;
 }
 ```
+
+## License
+Distributed under the [MIT License](LICENSE).
