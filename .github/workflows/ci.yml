@@ -32,4 +32,4 @@ jobs:
 
       - name: "Run tests"
         run: |
-          cd tests && ctest -v
+          cd build && ctest -v
