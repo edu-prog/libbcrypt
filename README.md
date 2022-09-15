@@ -1,6 +1,6 @@
 # libbcrypt
 
-[![Build Status](https://bb.ci.eduprog-team.ru/api/badges/eduprog/libbcrypt/status.svg)](https://bb.ci.eduprog-team.ru/eduprog/libbcrypt)
+[![CI](https://github.com/edu-prog/libbcrypt/actions/workflows/ci.yml/badge.svg)](https://github.com/edu-prog/libbcrypt/actions/workflows/ci.yml)
 
 A c++ wrapper around bcrypt password hashing
 
